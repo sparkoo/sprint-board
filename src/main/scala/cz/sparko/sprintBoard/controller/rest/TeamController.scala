@@ -15,6 +15,6 @@ class TeamController @Autowired()(val teamService: TeamService) {
 
     @RequestMapping(method = Array(POST))
     def save(@RequestParam("value") name: String) = {
-        teamService.save(name)
+        teamService.save(name).name
     }
 }

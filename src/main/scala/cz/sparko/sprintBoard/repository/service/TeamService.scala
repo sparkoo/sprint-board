@@ -14,12 +14,8 @@ import scala.collection.JavaConversions._
 class TeamService @Autowired()(teamDao: TeamDao) {
     def save(name: String) = {
         teamDao.findAll.toList match {
-            case teams if teams.nonEmpty => {
-                val newTeam = Team(name)
-                newTeam.id = teams.head.id
-                teamDao.save(newTeam).name
-            }
-            case _ => teamDao.save(Team(name)).name
+            case teams if teams.nonEmpty => teamDao.save(teams.head.copy(name = name))
+            case _ => teamDao.save(Team(name))
         }
     }
 
