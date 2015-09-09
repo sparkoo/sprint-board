@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      th:fragment="page">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content="Sprint board application"/>
+    <meta name="author" content="Michal Vala"/>
+
+    <title>Sprintboard</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap-theme.min.css}" rel="stylesheet"/>
+    <link th:href="@{/webjars/x-editable-bootstrap3/1.5.1/css/bootstrap-editable.css}" rel="stylesheet"/>
+    <!--<link th:href="@{/webjars/jquery-ui/1.11.4/jquery-ui.min.css}" rel="stylesheet" />-->
+    <link href="/css/style.css" rel="stylesheet"/>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.3/html5shiv.js"
+            th:src="@{/webjars/html5shiv/3.7.3/html5shiv.js}"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<!--<nav id="myNavbar" class="navbar navbar-default navbar-inverse navbar-fixed-top" role="navigation">-->
+<!--&lt;!&ndash; Brand and toggle get grouped for better mobile display &ndash;&gt;-->
+<!--<div class="container-fluid">-->
+<!--&lt;!&ndash; Collect the nav links, forms, and other content for toggling &ndash;&gt;-->
+<!--<div class="collapse navbar-collapse" id="navbarCollapse">-->
+<!--<ul class="nav navbar-nav">-->
+<!--<li><a href="#">5.5.2015</a></li>-->
+<!--<li><a href="#">20.5.2015</a></li>-->
+<!--<li><a href="#">Contact</a></li>-->
+<!--</ul>-->
+<!--</div>-->
+<!--</div>-->
+<!--</nav>-->
+<header class="jumbotron">
+    <div class="container-fluid">
+        <h2 class="col-lg-2" id="team-name" data-type="text" data-pk="1" data-url="/rest/team" data-title="Team name"
+            th:text="${@teamService.get()}"></h2>
+        <h1 class="col-lg-2" id="sprint-name" th:text="${@sprintController.getActive()}"></h1>
+        <h2 class="col-lg-2">1.9.2015 - 14.9.2015</h2>
+    </div>
+</header>
+<div class="jumbotron">
+    <div class="container-fluid">
+        <!--<div th:include="this :: content"/>-->
+        Hello
+    </div>
+</div>
+<script th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
+<!--<script th:src="@{/webjars/jquery-ui/1.11.4/jquery-ui.min.js}"></script>-->
+<script th:src="@{/webjars/bootstrap/3.3.5/js/bootstrap.min.js}"></script>
+<!--<script th:src="@{/webjars/x-editable-bootstrap3/1.5.1/js/bootstrap-editable.min.js}"></script>-->
+<script th:src="@{/webjars/jquery_jeditable/1.7.3/jquery.jeditable.js}"></script>
+<script src="/js/app.js"></script>
+</body>
+</html>

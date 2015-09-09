@@ -1,0 +1,61 @@
+group 'sprintBoard'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'rebel'
+apply plugin: 'java'
+apply plugin: 'spring-boot'
+apply plugin: 'scala'
+
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url "http://repo.spring.io/release" }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.5.RELEASE")
+        classpath group: 'org.zeroturnaround', name: 'gradle-jrebel-plugin', version: '1.1.2'
+    }
+}
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    maven { url "http://repo.spring.io/release" }
+}
+
+dependencies {
+    compile 'org.scala-lang:scala-library:2.11.7'
+
+    compile 'org.springframework.boot:spring-boot-starter-web:1.2.5.RELEASE'
+    compile 'org.springframework.boot:spring-boot-starter-data-mongodb:1.2.5.RELEASE'
+    compile 'org.springframework.boot:spring-boot-starter-thymeleaf:1.2.5.RELEASE'
+
+    //webjars
+    compile 'org.webjars:jquery:2.1.4'
+    compile 'org.webjars:jquery-ui:1.11.4'
+    compile 'org.webjars:html5shiv:3.7.3'
+    compile 'org.webjars:bootstrap:3.3.5'
+//    compile 'org.webjars:x-editable-bootstrap3:1.5.1'
+    compile 'org.webjars:jquery_jeditable:1.7.3'
+
+    testCompile 'org.testng:testng:6.1.1'
+    testCompile ('org.springframework:spring-test:4.1.6.RELEASE') {
+        exclude group: 'junit'
+    }
+    testCompile ('org.springframework.boot:spring-boot-starter-test:1.2.5.RELEASE') {
+        exclude group: 'junit'
+    }
+}
+
+test {
+    useTestNG()
+}
+
+jar.dependsOn(generateRebel)
+bootRun.dependsOn(generateRebel)
+
+applicationDefaultJvmArgs = [
+        "-javaagent:C:/Users/michal/.IdeaIC14/config/plugins/jr-ide-idea/lib/jrebel6/jrebel.jar",
+        "-Xbootclasspath/p:C:/Users/michal/AppData/Local/Temp//rebelboot.jar"
+]
