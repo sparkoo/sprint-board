@@ -1,6 +1,6 @@
 var activeSprint;
 $.ajax({
-    url: "/rest/sprint/getActive",
+    url: "/rest/sprint/getActive"
 }).done(function(data) {
     activeSprint = data
 })

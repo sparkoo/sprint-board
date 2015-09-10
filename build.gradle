@@ -52,10 +52,10 @@ test {
     useTestNG()
 }
 
-jar.dependsOn(generateRebel)
-bootRun.dependsOn(generateRebel)
+//jar.dependsOn(generateRebel)
+//bootRun.dependsOn(generateRebel)
 
-applicationDefaultJvmArgs = [
-        "-javaagent:C:/Users/michal/.IdeaIC14/config/plugins/jr-ide-idea/lib/jrebel6/jrebel.jar",
-        "-Xbootclasspath/p:C:/Users/michal/AppData/Local/Temp//rebelboot.jar"
-]
+//applicationDefaultJvmArgs = [
+//        "-javaagent:C:/Users/michal/.IdeaIC14/config/plugins/jr-ide-idea/lib/jrebel6/jrebel.jar",
+//        "-Xbootclasspath/p:C:/Users/michal/AppData/Local/Temp//rebelboot.jar"
+//]
