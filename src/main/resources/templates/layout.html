@@ -29,7 +29,7 @@
 <header class="jumbotron">
     <div class="container-fluid">
         <h2 class="col-lg-2" id="team-name" data-type="text" data-pk="1" data-url="/rest/team" data-title="Team name"
-            th:text="${@teamService.get()}"></h2>
+            th:text="${@teamController.get()}"></h2>
         <h1 class="col-lg-2" id="sprint-name" th:text="${@sprintController.getActive()}"></h1>
         <h2 class="col-lg-2">1.9.2015 - 14.9.2015</h2>
     </div>

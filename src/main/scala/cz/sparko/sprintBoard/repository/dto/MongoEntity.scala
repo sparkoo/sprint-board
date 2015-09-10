@@ -1,4 +1,4 @@
-package cz.sparko.sprintBoard.entity
+package cz.sparko.sprintBoard.repository.dto
 
 import org.springframework.data.annotation.Id
 

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.{RequestMapping, RequestParam, Re
 class TeamController @Autowired()(val teamService: TeamService) {
     @RequestMapping(method = Array(GET))
     def get = {
-        teamService.get
+        teamService.get.name
     }
 
     @RequestMapping(method = Array(POST))

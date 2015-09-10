@@ -1,11 +1,5 @@
 package cz.sparko.sprintBoard.entity
 
-import org.springframework.data.mongodb.core.index.Indexed
+import java.time.ZonedDateTime
 
-import scala.beans.BeanProperty
-
-case class Sprint(@BeanProperty @Indexed(unique = true) name: String,
-                  @BeanProperty from: Long,
-                  @BeanProperty to: Long,
-                  @BeanProperty current: Boolean)
-    extends MongoEntity
+case class Sprint(name: String, from: ZonedDateTime, to: ZonedDateTime)

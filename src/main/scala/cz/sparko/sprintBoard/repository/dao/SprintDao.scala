@@ -1,8 +1,8 @@
 package cz.sparko.sprintBoard.repository.dao
 
-import cz.sparko.sprintBoard.entity.Sprint
+import cz.sparko.sprintBoard.repository.dto.SprintEntity
 import org.springframework.data.mongodb.repository.MongoRepository
 
-trait SprintDao extends MongoRepository[Sprint, String] {
-    def findByCurrent(current: Boolean): java.util.List[Sprint]
+trait SprintDao extends MongoRepository[SprintEntity, String] {
+    def findByName(name: String): SprintEntity
 }
