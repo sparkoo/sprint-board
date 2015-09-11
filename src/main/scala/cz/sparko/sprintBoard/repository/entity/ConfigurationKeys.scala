@@ -1,4 +1,4 @@
-package cz.sparko.sprintBoard.repository.dto
+package cz.sparko.sprintBoard.repository.entity
 
 object ConfigurationKeys {
     //keys

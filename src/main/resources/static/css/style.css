@@ -1,0 +1,16 @@
+html {
+    height: 100%;
+}
+.height-100 {
+    height: 100%;
+}
+h1, h2, h3 {
+    text-align: center;
+}
+
+.rightPanel {
+    background: #7ebf4c;
+}
+.content {
+    background: #eee;
+}

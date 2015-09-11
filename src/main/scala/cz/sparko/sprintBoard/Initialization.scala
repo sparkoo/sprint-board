@@ -1,7 +1,7 @@
 package cz.sparko.sprintBoard
 
 import cz.sparko.sprintBoard.repository.dao.ConfigurationDao
-import cz.sparko.sprintBoard.repository.dto.{ConfigurationEntity, ConfigurationKeys}
+import cz.sparko.sprintBoard.repository.entity.{ConfigurationEntity, ConfigurationKeys}
 import cz.sparko.sprintBoard.repository.service.{SprintService, TeamService}
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.ApplicationListener

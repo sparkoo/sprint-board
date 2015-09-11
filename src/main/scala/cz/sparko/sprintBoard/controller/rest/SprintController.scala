@@ -18,8 +18,8 @@ class SprintController @Autowired()(val sprintService: SprintService) {
 
     }
 
-    @RequestMapping(Array("/getActive"))
-    def getActive() = {
+    @RequestMapping(Array("/getCurrent"))
+    def getCurrent() = {
         sprintService.getCurrent.name
     }
 }

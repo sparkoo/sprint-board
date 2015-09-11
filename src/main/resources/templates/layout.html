@@ -25,19 +25,21 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body>
-<header class="jumbotron">
-    <div class="container-fluid">
-        <h2 class="col-lg-2" id="team-name" data-type="text" data-pk="1" data-url="/rest/team" data-title="Team name"
-            th:text="${@teamController.get()}"></h2>
-        <h1 class="col-lg-2" id="sprint-name" th:text="${@sprintController.getActive()}"></h1>
-        <h2 class="col-lg-2">1.9.2015 - 14.9.2015</h2>
+<body class="height-100">
+<div class="container-fluid height-100 content">
+    <div class="col-lg-9">
+        <div th:include="this :: content"></div>
     </div>
-</header>
-<div class="jumbotron">
-    <div class="container-fluid">
-        <!--<div th:include="this :: content"/>-->
-        Hello
+    <div class="col-lg-3 rightPanel height-100">
+        <h2 id="team-name" data-type="text" data-pk="1" data-url="/rest/team" data-title="Team name"
+            th:text="${@teamController.get()}"></h2>
+
+        <h1 id="sprint-name" th:text="${@sprintController.getCurrent()}"></h1>
+
+        <h2 th:inline="text">
+            [[${@sprintService.getCurrent().getFormattedFrom()}]] -
+            [[${@sprintService.getCurrent().getFormattedTo()}]]
+        </h2>
     </div>
 </div>
 <script th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>

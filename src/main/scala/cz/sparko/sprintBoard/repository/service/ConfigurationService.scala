@@ -1,7 +1,7 @@
 package cz.sparko.sprintBoard.repository.service
 
 import cz.sparko.sprintBoard.repository.dao.ConfigurationDao
-import cz.sparko.sprintBoard.repository.dto.ConfigurationEntity
+import cz.sparko.sprintBoard.repository.entity.ConfigurationEntity
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 

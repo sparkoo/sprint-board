@@ -2,17 +2,15 @@ package cz.sparko.sprintBoard.repository.service
 
 import cz.sparko.sprintBoard.entity.Team
 import cz.sparko.sprintBoard.repository.dao.ConfigurationDao
-import cz.sparko.sprintBoard.repository.dto.{ConfigurationEntity, ConfigurationKeys}
+import cz.sparko.sprintBoard.repository.entity.{ConfigurationEntity, ConfigurationKeys}
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.data.mongodb.core.MongoTemplate
 import org.springframework.stereotype.Service
 
 /**
  * Service ensure that there is only one entry in Team document
  */
 @Service
-class TeamService @Autowired()(configurationDao: ConfigurationDao,
-                               mongoOperation: MongoTemplate) {
+class TeamService @Autowired()(configurationDao: ConfigurationDao) {
     def save(name: String): Team = {
         Option(configurationDao.findByKey(ConfigurationKeys.TEAM_NAME)) match {
             case Some(conf) => Team(configurationDao.save(conf.copy(value = name)).value)
