@@ -31,7 +31,7 @@ class SprintService @Autowired()(sprintDao: SprintDao,
         }
     }
 
-    def saveName(sprintName: String): Sprint = {
+    def saveNameToCurrent(sprintName: String): Sprint = {
         transferFromEntity(sprintDao.save(getCurrentEntity.copy(name = sprintName)))
     }
 
@@ -40,20 +40,20 @@ class SprintService @Autowired()(sprintDao: SprintDao,
     }
 
     def saveAsCurrent(sprint: Sprint): Unit = {
-        configurationService.saveOrReplace(ConfigurationKeys.CURRENT_SPRINT, sprintDao.findByName(sprint.name).id)
+        configurationService.saveOrReplace(ConfigurationKeys.CURRENT_SPRINT, sprintDao.findOne(sprint.id).id)
     }
 
     private def transferToEntity(sprint: Sprint): SprintEntity = {
-        SprintEntity(sprint.name, sprint.from.toEpochSecond, sprint.to.toEpochSecond)
+        SprintEntity(sprint.name, sprint.from.toEpochSecond, sprint.to.toEpochSecond, sprint.id)
     }
 
     private def transferFromEntity(sprintEntity: SprintEntity): Sprint = {
-        Sprint(sprintEntity.name,
+        Sprint(sprintEntity.id, sprintEntity.name,
             ZonedDateTime.ofInstant(Instant.ofEpochSecond(sprintEntity.from), ZoneOffset.UTC.normalized()),
             ZonedDateTime.ofInstant(Instant.ofEpochSecond(sprintEntity.to), ZoneOffset.UTC.normalized()))
     }
 
     def defaultSprint: Sprint = {
-        Sprint("Sprint", ZonedDateTime.now(), ZonedDateTime.now().plusDays(14))
+        Sprint(null, "Sprint", ZonedDateTime.now(), ZonedDateTime.now().plusDays(14))
     }
 }

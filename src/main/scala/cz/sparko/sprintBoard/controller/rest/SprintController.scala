@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.{RequestMapping, RequestParam, Re
 class SprintController @Autowired()(val sprintService: SprintService) {
     @RequestMapping(method = Array(POST), value = Array("/saveName"))
     def saveName(@RequestParam("value") name: String) = {
-        sprintService.saveName(name).name
+        sprintService.saveNameToCurrent(name).name
     }
 
     @RequestMapping(Array("/getAll"))

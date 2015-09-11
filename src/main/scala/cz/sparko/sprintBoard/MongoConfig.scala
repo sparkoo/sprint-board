@@ -13,7 +13,7 @@ class MongoConfig extends AbstractMongoConfiguration {
     @Bean
     override def mongo(): Mongo = {
         val mongo = new MongoClient()
-        //        mongo.getDB(getDatabaseName).getCollection("sprintEntity").createIndex(new BasicDBObject("name", 1), new BasicDBObject("unique", true))
+//        mongo.getDB(getDatabaseName).getCollection("sprintEntity").createIndex(new BasicDBObject("name", 1), new BasicDBObject("unique", true))
         mongo.getDB(getDatabaseName).getCollection("configurationEntity").createIndex(new BasicDBObject("key", 1), new BasicDBObject("unique", true))
         mongo
     }
