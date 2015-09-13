@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document
 
 import scala.beans.BeanProperty
 
-@Document(collection = "configuration")
+@Document
 case class ConfigurationEntity(@BeanProperty @Indexed(unique = true) key: String,
                                @BeanProperty value: String,
                                @BeanProperty @Id id: String = null,

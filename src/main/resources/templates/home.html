@@ -10,32 +10,21 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>Goal</th>
-            <th>Assignee</th>
-            <th>State</th>
+            <th class="col-lg-1">#</th>
+            <th class="col-lg-6">Goal</th>
+            <th class="col-lg-2">Owner(s)</th>
+            <th class="col-lg-3">State</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>Finish SafeQ6</td>
-            <td>MIV, VPA, VFU</td>
-            <td>complete</td>
-        </tr>
-        <tr>
-            <td>Finish SafeQ6</td>
-            <td>MIV, VPA, VFU</td>
-            <td>complete</td>
-        </tr>
-        <tr>
-            <td>Finish SafeQ6</td>
-            <td>MIV, VPA, VFU</td>
-            <td>complete</td>
-        </tr>
-        <tr>
-            <td>Finish SafeQ6</td>
-            <td>MIV, VPA, VFU</td>
-            <td>complete</td>
-        </tr>
+        <th:block th:each="goal, iterStat : ${@sprintController.getCurrentSprintGoals()}">
+            <tr th:attr="data-goal-id=${goal.id.get()}">
+                <td th:text="${iterStat.count}"></td>
+                <td th:text="${goal.name}"></td>
+                <td th:text="${goal.owners}"></td>
+                <td th:text="${goal.state}"></td>
+            </tr>
+        </th:block>
         </tbody>
     </table>
     <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add

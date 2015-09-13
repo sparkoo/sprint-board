@@ -1,18 +1,19 @@
 package cz.sparko.sprintBoard.entity
 
 import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
 
-case class Sprint(id: Option[String], name: String, from: ZonedDateTime, to: ZonedDateTime, goals: List[Goal]) {
-    val dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyy")
+import cz.sparko.sprintBoard.entity.GoalState.GoalState
 
-    def getFormattedFrom: String = {
-        from.format(dateFormatter)
-    }
+import scala.beans.BeanProperty
 
-    def getFormattedTo: String = {
-        to.format(dateFormatter)
-    }
+case class Sprint(id: Option[String], name: String, from: ZonedDateTime, to: ZonedDateTime, goals: List[Goal])
+
+case class Goal(@BeanProperty id: Option[String],
+                @BeanProperty name: String,
+                @BeanProperty owners: String = "",
+                @BeanProperty state: GoalState = GoalState.Open)
+
+object GoalState extends Enumeration {
+    type GoalState = Value
+    val Open, InProgress, Finished = Value
 }
-
-case class Goal(name: String)

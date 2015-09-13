@@ -34,11 +34,11 @@
         <h2 id="team-name" data-type="text" data-pk="1" data-url="/rest/team" data-title="Team name"
             th:text="${@teamController.get()}"></h2>
 
-        <h1 id="sprint-name" th:text="${@sprintController.getCurrent()}"></h1>
+        <h1 id="sprint-name" th:text="${@sprintController.getCurrentSprintName()}"></h1>
 
         <h2 th:inline="text">
-            [[${@sprintService.getCurrent().getFormattedFrom()}]] -
-            [[${@sprintService.getCurrent().getFormattedTo()}]]
+            [[${@sprintController.getCurrentSprintFromFormatted()}]] -
+            [[${@sprintController.getCurrentSprintToFormatted()}]]
         </h2>
     </div>
 </div>

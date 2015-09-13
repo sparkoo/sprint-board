@@ -9,12 +9,15 @@ import org.springframework.data.mongodb.core.mapping.Document
 
 import scala.beans.BeanProperty
 
-@Document(collection = "sprints")
+@Document
 case class SprintEntity(@BeanProperty @Indexed(unique = true) name: String,
                         @BeanProperty from: Long,
                         @BeanProperty to: Long,
+                        @BeanProperty goals: util.List[GoalEntity],
                         @BeanProperty @Id id: String = null,
-                        @BeanProperty @Version version: Long = 0,
-                        @BeanProperty goals: util.List[GoalEntity] = new util.ArrayList())
+                        @BeanProperty @Version version: Long = 0)
 
-case class GoalEntity(@BeanProperty name: String, @BeanProperty @Id id: String = new ObjectId().toString)
+case class GoalEntity(@BeanProperty name: String,
+                      @BeanProperty owners: String,
+                      @BeanProperty state: String,
+                      @BeanProperty @Id id: String = new ObjectId().toString)
