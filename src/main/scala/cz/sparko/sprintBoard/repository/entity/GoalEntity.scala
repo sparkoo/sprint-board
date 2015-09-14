@@ -13,6 +13,8 @@ case class GoalEntity(@BeanProperty name: String,
     extends MongoEntity[Goal](id) {
 
     override def toCoreEntity: Goal = Goal(Option(id), name, owners, GoalState.withName(state))
+}
 
-    def this(coreEntity: Goal) = this(coreEntity.name, coreEntity.owners, coreEntity.state.toString, coreEntity.id.orNull)
+object GoalEntityFactory {
+    def apply(goal: Goal) = GoalEntity(goal.name, goal.owners, goal.state.toString, goal.id.orNull)
 }

@@ -22,9 +22,11 @@ case class SprintEntity(@BeanProperty @Indexed(unique = true) name: String,
 
     def toCoreEntity(goalsEntities: List[GoalEntity]) = Sprint(Option(id), name,
         ZonedDateTime.ofInstant(Instant.ofEpochSecond(from), ZoneOffset.UTC.normalized()),
-        ZonedDateTime.ofInstant(Instant.ofEpochSecond(from), ZoneOffset.UTC.normalized()),
+        ZonedDateTime.ofInstant(Instant.ofEpochSecond(to), ZoneOffset.UTC.normalized()),
         goalsEntities.map(g => g.toCoreEntity))
+}
 
-    def this(coreEntity: Sprint) = this(coreEntity.name, coreEntity.from.toEpochSecond, coreEntity.to.toEpochSecond,
-        coreEntity.goals.map(g => g.id.orNull).toList, coreEntity.id.orNull)
+object SprintEntityFactory {
+    def apply(sprint: Sprint) = SprintEntity(sprint.name, sprint.from.toEpochSecond, sprint.to.toEpochSecond,
+        sprint.goals.map(g => g.id.orNull).toList, sprint.id.orNull)
 }

@@ -14,3 +14,7 @@ case class ConfigurationEntity(@BeanProperty @Indexed(unique = true) key: String
 
     override def toCoreEntity: ConfigurationProperty = ConfigurationProperty(key, value)
 }
+
+object ConfigurationEntityFactory {
+    def apply(configurationProperty: ConfigurationProperty) = ConfigurationEntity(configurationProperty.key, configurationProperty.value)
+}

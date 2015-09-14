@@ -35,8 +35,6 @@ dependencies {
     compile 'org.webjars:jquery:2.1.4'
     compile 'org.webjars:jquery-ui:1.11.4'
     compile 'org.webjars:html5shiv:3.7.3'
-    compile 'org.webjars:bootstrap:3.3.5'
-//    compile 'org.webjars:x-editable-bootstrap3:1.5.1'
     compile 'org.webjars:jquery_jeditable:1.7.3'
 
     testCompile 'org.testng:testng:6.1.1'
@@ -52,10 +50,10 @@ test {
     useTestNG()
 }
 
-//jar.dependsOn(generateRebel)
-//bootRun.dependsOn(generateRebel)
-//
-//applicationDefaultJvmArgs = [
-//        "-javaagent:C:/Users/michal/.IdeaIC14/config/plugins/jr-ide-idea/lib/jrebel6/jrebel.jar",
-//        "-Xbootclasspath/p:C:/Users/michal/AppData/Local/Temp//rebelboot.jar"
-//]
+jar.dependsOn(generateRebel)
+bootRun.dependsOn(generateRebel)
+
+applicationDefaultJvmArgs = [
+        "-javaagent:C:/Users/michal/.IdeaIC14/config/plugins/jr-ide-idea/lib/jrebel6/jrebel.jar",
+        "-Xbootclasspath/p:C:/Users/michal/AppData/Local/Temp//rebelboot.jar"
+]
