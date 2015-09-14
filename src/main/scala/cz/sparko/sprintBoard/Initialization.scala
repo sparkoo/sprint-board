@@ -1,7 +1,7 @@
 package cz.sparko.sprintBoard
 
-import cz.sparko.sprintBoard.repository.dao.{GoalDao, ConfigurationDao}
-import cz.sparko.sprintBoard.repository.entity.{GoalEntity, ConfigurationEntity, ConfigurationKeys}
+import cz.sparko.sprintBoard.repository.dao.{ConfigurationDao, GoalDao}
+import cz.sparko.sprintBoard.repository.entity.{ConfigurationEntity, ConfigurationKeys}
 import cz.sparko.sprintBoard.repository.service.{SprintService, TeamService}
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.ApplicationListener
@@ -18,6 +18,5 @@ class Initialization @Autowired()(configurationDao: ConfigurationDao,
             configurationDao.save(ConfigurationEntity(ConfigurationKeys.TEAM_NAME, teamService.defaultTeam.name))
             sprintService.saveAsCurrent(sprintService.save(sprintService.defaultSprint))
         }
-        goalDao.update(sprintService.getCurrent.id.get, GoalEntity("test new name", "test new owners", "Finished"))
     }
 }

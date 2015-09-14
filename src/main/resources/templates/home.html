@@ -17,7 +17,7 @@
         </tr>
         </thead>
         <tbody>
-        <th:block th:each="goal, iterStat : ${@sprintController.getCurrentSprintGoals()}">
+        <th:block th:each="goal, iterStat : ${@goalController.getCurrentSprintGoals()}">
             <tr th:attr="data-goal-id=${goal.id.get()}">
                 <td th:text="${iterStat.count}"></td>
                 <td th:text="${goal.name}"></td>
@@ -27,8 +27,9 @@
         </th:block>
         </tbody>
     </table>
-    <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add
-        goal
+    <button type="button" class="btn btn-success">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        Add goal
     </button>
 </div>
 </body>

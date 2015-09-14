@@ -2,12 +2,10 @@ package cz.sparko.sprintBoard.controller.rest
 
 import java.time.format.DateTimeFormatter
 
-import cz.sparko.sprintBoard.entity.Goal
 import cz.sparko.sprintBoard.repository.service.SprintService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.RequestMethod.POST
 import org.springframework.web.bind.annotation.{RequestMapping, RequestParam, RestController}
-import scala.collection.JavaConversions._
 
 @RestController
 @RequestMapping(Array("/rest/sprint"))
@@ -25,10 +23,6 @@ class SprintController @Autowired()(val sprintService: SprintService) {
     @RequestMapping(Array("/getCurrent"))
     def getCurrentSprintName() = {
         sprintService.getCurrent.name
-    }
-
-    def getCurrentSprintGoals(): java.util.List[Goal] = {
-        sprintService.getCurrent.goals
     }
 
     val dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyy")

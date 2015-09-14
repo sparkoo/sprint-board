@@ -1,23 +1,30 @@
 package cz.sparko.sprintBoard.repository.entity
 
+import java.time.{ZoneOffset, Instant, ZonedDateTime}
 import java.util
 
-import org.bson.types.ObjectId
-import org.springframework.data.annotation.{Id, Version}
+import cz.sparko.sprintBoard.entity.Sprint
 import org.springframework.data.mongodb.core.index.Indexed
 import org.springframework.data.mongodb.core.mapping.Document
 
 import scala.beans.BeanProperty
+import scala.collection.JavaConversions._
 
 @Document
 case class SprintEntity(@BeanProperty @Indexed(unique = true) name: String,
                         @BeanProperty from: Long,
                         @BeanProperty to: Long,
-                        @BeanProperty goals: util.List[GoalEntity],
-                        @BeanProperty @Id id: String = null,
-                        @BeanProperty @Version version: Long = 0)
+                        @BeanProperty goals: util.List[String],
+                        @BeanProperty id: String = null)
+    extends MongoEntity[Sprint](id) {
 
-case class GoalEntity(@BeanProperty name: String,
-                      @BeanProperty owners: String,
-                      @BeanProperty state: String,
-                      @BeanProperty @Id id: String = new ObjectId().toString)
+    override def toCoreEntity: Sprint = toCoreEntity(List())
+
+    def toCoreEntity(goalsEntities: List[GoalEntity]) = Sprint(Option(id), name,
+        ZonedDateTime.ofInstant(Instant.ofEpochSecond(from), ZoneOffset.UTC.normalized()),
+        ZonedDateTime.ofInstant(Instant.ofEpochSecond(from), ZoneOffset.UTC.normalized()),
+        goalsEntities.map(g => g.toCoreEntity))
+
+    def this(coreEntity: Sprint) = this(coreEntity.name, coreEntity.from.toEpochSecond, coreEntity.to.toEpochSecond,
+        coreEntity.goals.map(g => g.id.orNull).toList, coreEntity.id.orNull)
+}
