@@ -18,4 +18,6 @@ class GoalService @Autowired()(goalDao: GoalDao) {
     def save(goals: List[Goal]): List[Goal] = {
         goals.map(g => goalDao.save(GoalEntityFactory(g))).map(g => g.toCoreEntity)
     }
+
+    def removeGoal(goalId: String) = goalDao.delete(goalId)
 }

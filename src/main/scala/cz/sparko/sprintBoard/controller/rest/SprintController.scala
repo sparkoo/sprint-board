@@ -2,11 +2,11 @@ package cz.sparko.sprintBoard.controller.rest
 
 import java.time.format.DateTimeFormatter
 
-import cz.sparko.sprintBoard.entity.Goal
+import cz.sparko.sprintBoard.entity.{Sprint, Goal}
 import cz.sparko.sprintBoard.repository.service.SprintService
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.RequestMethod.POST
-import org.springframework.web.bind.annotation.{RequestParam, RequestMapping, RestController}
+import org.springframework.web.bind.annotation.RequestMethod.{POST, GET}
+import org.springframework.web.bind.annotation.{RequestMapping, RequestParam, ResponseBody, RestController}
 
 @RestController
 @RequestMapping(Array("/rest/sprint"))
@@ -30,16 +30,17 @@ class SprintController @Autowired()(val sprintService: SprintService) {
         sprintService.getCurrent.id.getOrElse("")
     }
 
-    @RequestMapping(method = Array(POST), value = Array("/addGoal"))
+    @RequestMapping(method = Array(POST, GET), value = Array("/addGoal"))
+    @ResponseBody
     def addGoal(@RequestParam("sprintId") sprintId: String,
                 @RequestParam("goalName") goalName: String,
-                @RequestParam("goalOwners") goalOwners: String) = {
-        sprintService.addGoal(sprintId, Goal(None, goalName, goalOwners))
+                @RequestParam("goalOwners") goalOwners: String): Sprint = {
+        sprintService.addGoal(sprintId, Goal(None, goalName, goalOwners)).get
     }
 
     @RequestMapping(method = Array(POST), value = Array("/removeGoal"))
     def removeGoal(@RequestParam("sprintId") sprintId: String, @RequestParam("goalId") goalId: String) = {
-        sprintService.removeGoal(sprintId, goalId).isDefined
+        sprintService.removeGoal(sprintId, goalId)
     }
 
     val dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyy")

@@ -38,6 +38,7 @@ class SprintService @Autowired()(sprintDao: SprintDao,
 
     def removeGoal(sprintId: String, goalId: String) = {
         findById(sprintId).map(s => save(s.copy(goals = s.goals.filter(g => g.id.getOrElse("") != goalId))))
+            .foreach(_ => goalService.removeGoal(goalId))
     }
 
     def saveNameToCurrent(sprintName: String): Sprint = {

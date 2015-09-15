@@ -10,7 +10,7 @@
     <meta name="description" content="Sprint board application"/>
     <meta name="author" content="Michal Vala"/>
 
-    <title>Sprintboard</title>
+    <title th:inline="text">[[${@teamController.get()}]] - Sprintboard</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
@@ -45,6 +45,7 @@
 <script th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script th:src="@{/webjars/jquery_jeditable/1.7.3/jquery.jeditable.js}"></script>
+<script src="/js/goals.js"></script>
 <script src="/js/app.js"></script>
 </body>
 </html>

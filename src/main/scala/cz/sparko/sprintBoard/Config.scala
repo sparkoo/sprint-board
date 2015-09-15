@@ -7,5 +7,4 @@ import org.springframework.context.annotation.Import
 @SpringBootApplication
 @Import(Array(classOf[MongoConfig]))
 class Config extends WebMvcAutoConfiguration {
-
 }
