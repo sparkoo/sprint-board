@@ -1,6 +1,6 @@
 * autocrlf=false
 * text=auto
 * text eol=lf
-*.ttf
-*.woff
-*.woff2
+*.ttf binary
+*.woff binary
+*.woff2 binary
