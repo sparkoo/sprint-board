@@ -39,8 +39,9 @@ class SprintController @Autowired()(val sprintService: SprintService) {
     }
 
     @RequestMapping(method = Array(POST), value = Array("/removeGoal"))
-    def removeGoal(@RequestParam("sprintId") sprintId: String, @RequestParam("goalId") goalId: String) = {
+    def removeGoal(@RequestParam("sprintId") sprintId: String, @RequestParam("goalId") goalId: String): Boolean = {
         sprintService.removeGoal(sprintId, goalId)
+        true
     }
 
     val dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyy")

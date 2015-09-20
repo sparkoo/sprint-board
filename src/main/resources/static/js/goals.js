@@ -9,45 +9,71 @@ function printGoalsTable(goals) {
 }
 
 function handleEvents() {
-    $('.removeGoal').off().on("click", function(event) {
-        $.ajax({
-            url: "/rest/sprint/removeGoal",
-            method: "POST",
-            data: {
-                "sprintId": currentSprintId,
-                "goalId": $(event.target).attr("data-goal-id")
-            }
-        }).done(function(data) {
+    $('.removeGoal').off().on("click", removeGoalRequest)
+    $('.changeState').off().on("click", changeStateRequest)
+    $('#addGoal').off().on("click", addGoalForm)
+    $('.goalName').off().editable("/rest/goal/updateName", {
+        id: "goalId",
+        name: "name",
+//        event: "mouseover",
+        onblur: "submit",
+        callback: function(value) {
             getGoals(currentSprintId, printGoalsTable)
-        })
-    })
-
-    $('#addGoal').off().on("click", function() {
-        var attr = $('#goalsTable tr:last').attr('data-goal-id')
-        if ($('#goalsTable tr').length <= 1 || (typeof attr !== typeof undefined && attr !== false)) {
-            // next goal number
-            var lastNo = $('#goalsTable tr:last td:first').text()
-            if (lastNo.length > 0) {
-                lastNo = parseInt(lastNo.substring(0, lastNo.length - 1)) + 1
-            } else {
-                lastNo = 1
-            }
-
-            // create new goal form table line
-            $('#goalsTable > tbody:last-child').append(goalInlineForm(lastNo))
-            $('#newGoalName').focus()
-
-            // submit new goal form
-            $('#goalsForm').off().submit("click", function() {
-                addGoalRequest()
-                return false
-            })
-
-            // cancel button in new goal form
-            $('#cancelNewGoalForm').off().on("click", function() {
-                $("#newGoalLine").remove()
-            })
         }
+    })
+    $('.goalOwners').off().editable("/rest/goal/updateOwners", {
+        id: "goalId",
+        name: "owners",
+//        event: "mouseover",
+        onblur: "submit",
+        callback: function(value) {
+            getGoals(currentSprintId, printGoalsTable)
+        }
+    })
+}
+
+function addGoalForm(event) {
+    var attr = $('#goalsTable tr:last').attr('data-goal-id')
+    if ($('#goalsTable tr').length <= 1 || (typeof attr !== typeof undefined && attr !== false)) {
+        // create new goal form table line
+        $('#goalsTable > tbody:last-child').append(goalInlineForm())
+        $('#newGoalName').focus()
+
+        // submit new goal form
+        $('#goalsForm').off().submit("click", function() {
+            addGoalRequest()
+            return false
+        })
+
+        // cancel button in new goal form
+        $('#cancelNewGoalForm').off().on("click", function() {
+            $("#newGoalLine").remove()
+        })
+    }
+}
+
+function changeStateRequest(event) {
+    $.ajax({
+        url: "/rest/goal/toggleState",
+        method: "POST",
+        data: {
+            "goalId": $(event.target).attr("data-goal-id")
+        }
+    }).done(function() {
+        getGoals(currentSprintId, printGoalsTable)
+    })
+}
+
+function removeGoalRequest(event) {
+    $.ajax({
+        url: "/rest/sprint/removeGoal",
+        method: "POST",
+        data: {
+            "sprintId": currentSprintId,
+            "goalId": $(event.target).attr("data-goal-id")
+        }
+    }).done(function() {
+        getGoals(currentSprintId, printGoalsTable)
     })
 }
 
@@ -67,20 +93,33 @@ function addGoalRequest() {
 
 function generateGoalLine(goal, count) {
     var line = []
+    var btn = "default"
+    var icon = "knight"
+    switch(goal.state) {
+        case "Healthy":
+            btn = "info"
+            icon = "leaf"
+            break;
+        case "Risk":
+            btn = "warning"
+            icon = "warning-sign"
+            break;
+        case "Done":
+            btn = "success"
+            icon = "ok"
+            break;
+    }
     line.push("<tr data-goal-id='" + goal.id + "'>")
-        line.push("<td>" + (parseInt(count)+1) + ".</td>")
-        line.push("<td>" + goal.name + "</td>")
-        line.push("<td>" + goal.owners + "</td>")
-        line.push("<td>" + goal.state + "</td>")
+        line.push("<td>")
+            line.push("<button type='button' class='btn btn-" + btn + " btn changeState' role='button' data-goal-id='" + goal.id + "'>")
+                line.push("<span class='glyphicon glyphicon-" + icon + "' aria-hidden='true'></span>")
+            line.push("</button>")
+        line.push("</td>")
+        line.push("<td class='goalName' id='" + goal.id + "-name'>" + goal.name + "</td>")
+        line.push("<td class='goalOwners' id='" + goal.id + "-name'>" + goal.owners + "</td>")
         line.push("<td>")
             line.push("<button type='button' class='btn btn-danger removeGoal' data-goal-id='" + goal.id + "'>")
                 line.push("<span class='glyphicon glyphicon-trash' aria-hidden='true'></span>")
-            line.push("</button>")
-            line.push("<button type='button' class='btn btn-warning' data-goal-id='" + goal.id + "'>")
-                line.push("<span class='glyphicon glyphicon-pencil' aria-hidden='true'></span>")
-            line.push("</button>")
-            line.push("<button type='button' class='btn btn-info' data-goal-id='" + goal.id + "'>")
-                line.push("<span class='glyphicon glyphicon-chevron-right' aria-hidden='true'></span>")
             line.push("</button>")
         line.push("</td>")
     line.push("</tr>")
@@ -90,10 +129,9 @@ function generateGoalLine(goal, count) {
 function goalInlineForm(lineNo) {
     var form = []
     form.push("<tr id='newGoalLine'>")
-        form.push("<td>" + lineNo + ".</td>")
+        form.push("<td></td>")
         form.push("<td><input type='text' class='form-control col-lg-12' id='newGoalName' placeholder='Goal name' required /></td>")
         form.push("<td><input type='text' class='form-control col-lg-12' id='newGoalOwners' placeholder='Owners' /></td>")
-        form.push("<td></td>")
         form.push("<td>")
             form.push("<button type='submit' class='btn btn-success' id='saveGoal'>")
                 form.push("<span class='glyphicon glyphicon-floppy-disk' aria-hidden='true'></span>")

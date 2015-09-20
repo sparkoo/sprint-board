@@ -15,11 +15,13 @@ case class Sprint(id: Option[String], name: String, from: ZonedDateTime, to: Zon
 case class Goal(@BeanProperty id: Option[String],
                 @BeanProperty name: String,
                 @BeanProperty owners: String = "",
-                @BeanProperty state: GoalState = GoalState.Open)
+                @BeanProperty state: GoalState = GoalState.Healthy)
 
 object GoalState extends Enumeration {
     type GoalState = Value
-    val Open, InProgress, Finished = Value
+    val Healthy, Risk, Done = Value
+    def withValue(value: Int): GoalState = values.find(p => p.id == value).orNull
+    def toggle(state: GoalState.Value): GoalState = values.find(p => p.id == ((state.id + 1) % values.size)).orNull
 }
 
 class GoalSerializer extends JsonSerializer[Goal] {
