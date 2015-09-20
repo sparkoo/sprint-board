@@ -1,6 +1,5 @@
-package sprintBoard.entity
+package cz.sparko.sprintBoard.entity
 
-import cz.sparko.sprintBoard.entity.GoalState
 import org.testng.Assert._
 import org.testng.annotations.Test
 

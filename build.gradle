@@ -22,11 +22,15 @@ sourceCompatibility = 1.8
 repositories {
     mavenCentral()
     maven { url "http://repo.spring.io/release" }
+    maven { url "https://maven.atlassian.com/content/repositories/atlassian-public/" }
 }
 
 dependencies {
     compile "org.scala-lang:scala-library:2.11.7"
 
+    compile "com.atlassian.jira:jira-rest-java-client-core:3.0.0"
+
+    //spring
     compile "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
     compile "org.springframework.boot:spring-boot-starter-data-mongodb:$springBootVersion"
     compile "org.springframework.boot:spring-boot-starter-thymeleaf:$springBootVersion"
