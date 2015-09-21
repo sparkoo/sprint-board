@@ -1,5 +1,6 @@
 package cz.sparko.sprintBoard.controller.rest
 
+import java.time.{ZoneOffset, Instant, ZonedDateTime}
 import java.time.format.DateTimeFormatter
 
 import cz.sparko.sprintBoard.entity.{Sprint, Goal}
@@ -11,6 +12,22 @@ import org.springframework.web.bind.annotation.{RequestMapping, RequestParam, Re
 @RestController
 @RequestMapping(Array("/rest/sprint"))
 class SprintController @Autowired()(val sprintService: SprintService) {
+    @RequestMapping(method = Array(POST), value = Array("/updateFrom"))
+    def updateFrom(@RequestParam(value = "sprintId", required = true) sprintId: String,
+                   @RequestParam(value = "fromValue", required = true) fromValue: Long) = {
+        sprintService.findById(sprintId)
+            .map(s => sprintService.save(
+            s.copy(from = ZonedDateTime.ofInstant(Instant.ofEpochSecond(fromValue), ZoneOffset.UTC.normalized()))))
+    }
+
+    @RequestMapping(method = Array(POST), value = Array("/updateTo"))
+    def updateTo(@RequestParam(value = "sprintId", required = true) sprintId: String,
+                 @RequestParam(value = "toValue", required = true) toValue: Long) = {
+        sprintService.findById(sprintId)
+            .map(s => sprintService.save(
+            s.copy(to = ZonedDateTime.ofInstant(Instant.ofEpochSecond(toValue), ZoneOffset.UTC.normalized()))))
+    }
+
     @RequestMapping(method = Array(POST), value = Array("/saveName"))
     def saveName(@RequestParam("value") name: String) = {
         sprintService.saveNameToCurrent(name).name

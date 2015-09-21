@@ -18,7 +18,7 @@ function handleEvents() {
 //        event: "mouseover",
         onblur: "submit",
         callback: function(value) {
-            getGoals(currentSprintId, printGoalsTable)
+            loadGoals(currentSprintId, printGoalsTable)
         }
     })
     $('.goalOwners').off().editable("/rest/goal/updateOwners", {
@@ -27,7 +27,7 @@ function handleEvents() {
 //        event: "mouseover",
         onblur: "submit",
         callback: function(value) {
-            getGoals(currentSprintId, printGoalsTable)
+            loadGoals(currentSprintId, printGoalsTable)
         }
     })
 }
@@ -60,7 +60,7 @@ function changeStateRequest(event) {
             "goalId": $(event.target).attr("data-goal-id")
         }
     }).done(function() {
-        getGoals(currentSprintId, printGoalsTable)
+        loadGoals(currentSprintId, printGoalsTable)
     })
 }
 
@@ -73,7 +73,7 @@ function removeGoalRequest(event) {
             "goalId": $(event.target).attr("data-goal-id")
         }
     }).done(function() {
-        getGoals(currentSprintId, printGoalsTable)
+        loadGoals(currentSprintId, printGoalsTable)
     })
 }
 
@@ -87,7 +87,7 @@ function addGoalRequest() {
             "goalOwners": $("#newGoalOwners").val()
         }
     }).done(function(data) {
-        getGoals(currentSprintId, printGoalsTable)
+        loadGoals(currentSprintId, printGoalsTable)
     })
 }
 
@@ -144,7 +144,7 @@ function goalInlineForm(lineNo) {
     return form.join("\n")
 }
 
-function getGoals(sprintId, printFunction) {
+function loadGoals(sprintId, printFunction) {
     $.ajax({
         url: "/rest/goal/goals",
             method: "GET",
