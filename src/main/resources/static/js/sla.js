@@ -3,12 +3,14 @@ function loadSlas() {
         url: "/rest/issue/sla",
             method: "GET",
     }).done(function(slas) {
-        $("#slaTable tbody").empty()
+        $("#slaTable").find("tbody").empty()
         var slaLines = []
         for (var k in slas) {
             slaLines.push(generateSlaLine(slas[k], k))
         }
-        $("#slaTable tbody").html(slaLines.join("\n"))
+        $("#slaTable").find("tbody").html(slaLines.join("\n"))
+    }).error(function() {
+        $("#slaTable").find("tbody").html("<tr><td></td><td>error when getting SLAs ...</td><td></td><td></td><td></td></tr>")
     })
 }
 

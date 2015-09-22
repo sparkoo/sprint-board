@@ -57,7 +57,12 @@ function load() {
     $('#team-name').editable("/rest/team", {
         callback: function(value) {
             document.title = value + " - Sprintboard"
+            loadSlas()
         }
     })
-    $('#sprint-name').editable("/rest/sprint/saveName")
+    $('#sprint-name').editable("/rest/sprint/saveName", {
+        callback: function () {
+            loadSlas()
+        }
+    })
 }

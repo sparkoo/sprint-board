@@ -4,7 +4,7 @@ function printGoalsTable(goals) {
     for (var k in goals) {
         goalLines.push(generateGoalLine(goals[k], k))
     }
-    $("#goalsTable tbody").html(goalLines.join("\n"));
+    $("#goalsTable").find("tbody").html(goalLines.join("\n"));
     handleEvents()
 }
 
@@ -33,10 +33,10 @@ function handleEvents() {
 }
 
 function addGoalForm(event) {
-    var attr = $('#goalsTable tr:last').attr('data-goal-id')
-    if ($('#goalsTable tr').length <= 1 || (typeof attr !== typeof undefined && attr !== false)) {
+    var attr = $('#goalsTable').find('tr:last').attr('data-goal-id')
+    if ($('#goalsTable').find('tr').length <= 1 || (typeof attr !== typeof undefined && attr !== false)) {
         // create new goal form table line
-        $('#goalsTable > tbody:last-child').append(goalInlineForm())
+        $('#goalsTable').find('> tbody:last-child').append(goalInlineForm())
         $('#newGoalName').focus()
 
         // submit new goal form
@@ -133,7 +133,7 @@ function goalInlineForm(lineNo) {
         form.push("<td><input type='text' class='form-control col-lg-12' id='newGoalName' placeholder='Goal name' required /></td>")
         form.push("<td><input type='text' class='form-control col-lg-12' id='newGoalOwners' placeholder='Owners' /></td>")
         form.push("<td>")
-            form.push("<button type='submit' class='btn btn-success' id='saveGoal'>")
+            form.push("<button type='submit' class='btn btn-success hidden' id='saveGoal'>")
                 form.push("<span class='glyphicon glyphicon-floppy-disk' aria-hidden='true'></span>")
             form.push("</button>")
             form.push("<button type='button' class='btn btn-danger' id='cancelNewGoalForm'>")
