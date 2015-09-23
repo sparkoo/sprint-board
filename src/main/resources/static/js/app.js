@@ -46,8 +46,21 @@ $(document).ready(function() {
         }).done(function() {
             $('#to').text(e.format())
         })
-
     })
+
+    $("#newCodefreezeDate").datepicker({
+          format: "dd.mm.yyyy",
+          weekStart: 1,
+          autoclose: true,
+          todayHighlight: true
+      })
+
+      $("#newReleaseDate").datepicker({
+          format: "dd.mm.yyyy",
+          weekStart: 1,
+          autoclose: true,
+          todayHighlight: true
+      })
 });
 
 function load() {

@@ -16,7 +16,8 @@
     <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <link href="/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/>
     <link href="/css/style.css" rel="stylesheet" type="text/css"/>
-    <link th:href="@{/webjars/bootstrap-datepicker/1.4.0/css/bootstrap-datepicker.min.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/webjars/bootstrap-datepicker/1.4.0/css/bootstrap-datepicker.min.css}" rel="stylesheet"
+          type="text/css"/>
     <!--<link th:href="@{/webjars/jquery-ui/1.11.4/jquery-ui.min.css}" rel="stylesheet" type="text/css" />-->
     <!--<link th:href="@{/webjars/jquery-ui/1.11.4/jquery-ui.theme.min.css}" rel="stylesheet" type="text/css" />-->
 
@@ -71,15 +72,93 @@
         </div>
     </div>
     <div class="col-lg-3 rightPanel height-100">
-        <h2 id="team-name" data-type="text" data-pk="1" data-title="Team name"
-            th:text="${@teamController.get()}"></h2>
+        <div clas="row">
+            <h2 id="team-name" data-type="text" data-pk="1" data-title="Team name"
+                th:text="${@teamController.get()}"></h2>
 
-        <h1 id="sprint-name" th:text="${@sprintController.getCurrentSprintName()}"></h1>
+            <h1 id="sprint-name" th:text="${@sprintController.getCurrentSprintName()}"></h1>
 
-        <h3 th:inline="text">
-            <span id="from" th:text="${@sprintController.getCurrentSprintFromFormatted()}"></span> -
-            <span id="to" th:text="${@sprintController.getCurrentSprintToFormatted()}"></span>
-        </h3>
+            <h3 th:inline="text">
+                <span id="from" th:text="${@sprintController.getCurrentSprintFromFormatted()}"></span> -
+                <span id="to" th:text="${@sprintController.getCurrentSprintToFormatted()}"></span>
+            </h3>
+        </div>
+        <hr/>
+        <div class="row">
+            <div class="col-lg-12">
+                <form id="releaseForm">
+                    <table class="table table-striped" id="releaseTable">
+                        <thead>
+                        <tr>
+                            <th class="col-lg-3">version</th>
+                            <th class="col-lg-4">codefreeze</th>
+                            <th class="col-lg-4">release</th>
+                            <th class="col-lg-1">
+                                <button type="button" class="btn btn-xs btn-success" id="addRelease">
+                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                </button>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>5.24</td>
+                            <td>2.7.2015</td>
+                            <td>7.7.2015</td>
+                            <td>
+                                <button type="button" class="btn btn-xs btn-danger removeRelease">
+                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>4.49</td>
+                            <td>2.7.2015</td>
+                            <td>7.7.2015</td>
+                            <td>
+                                <button type="button" class="btn btn-xs btn-danger removeRelease">
+                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>5.24</td>
+                            <td>2.7.2015</td>
+                            <td>7.7.2015</td>
+                            <td>
+                                <button type="button" class="btn btn-xs btn-danger removeRelease">
+                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type='text' class='form-control col-lg-12' id='newReleaseVersion' placeholder='version' required="true" />
+                            </td>
+                            <td>
+                                <input type='text' class='form-control col-lg-12' id='newCodefreezeDate' required="true" />
+                            </td>
+                            <td>
+                                <input type='text' class='form-control col-lg-12' id='newReleaseDate' required="true" />
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-xs btn-info removeRelease">
+                                    <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+        <hr/>
+        <div class="row">
+            <div class="col-lg-12">
+                <h4>noteboard</h4>
+                <textarea class="col-lg-12" rows="5"></textarea>
+            </div>
+        </div>
     </div>
 </div>
 <script th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>

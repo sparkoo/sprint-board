@@ -4,7 +4,7 @@ function printGoalsTable(goals) {
     for (var k in goals) {
         goalLines.push(generateGoalLine(goals[k], k))
     }
-    $("#goalsTable").find("tbody").html(goalLines.join("\n"));
+    $("#goalsTable").find("tbody").html(goalLines.join("\n"))
     handleEvents()
 }
 
@@ -57,7 +57,7 @@ function changeStateRequest(event) {
         url: "/rest/goal/toggleState",
         method: "POST",
         data: {
-            "goalId": $(event.target).attr("data-goal-id")
+            "goalId": $(event.target.closest('tr')).attr("data-goal-id")
         }
     }).done(function() {
         loadGoals(currentSprintId, printGoalsTable)
@@ -70,7 +70,7 @@ function removeGoalRequest(event) {
         method: "POST",
         data: {
             "sprintId": currentSprintId,
-            "goalId": $(event.target).attr("data-goal-id")
+            "goalId": $(event.target.closest('tr')).attr("data-goal-id")
         }
     }).done(function() {
         loadGoals(currentSprintId, printGoalsTable)
@@ -111,14 +111,14 @@ function generateGoalLine(goal, count) {
     }
     line.push("<tr data-goal-id='" + goal.id + "'>")
         line.push("<td>")
-            line.push("<button type='button' class='btn btn-" + btn + " btn changeState' role='button' data-goal-id='" + goal.id + "'>")
+            line.push("<button type='button' class='btn btn-" + btn + " btn changeState' role='button'>")
                 line.push("<span class='glyphicon glyphicon-" + icon + "' aria-hidden='true'></span>")
             line.push("</button>")
         line.push("</td>")
         line.push("<td class='goalName' id='" + goal.id + "-name'>" + goal.name + "</td>")
         line.push("<td class='goalOwners' id='" + goal.id + "-name'>" + goal.owners + "</td>")
         line.push("<td>")
-            line.push("<button type='button' class='btn btn-danger removeGoal' data-goal-id='" + goal.id + "'>")
+            line.push("<button type='button' class='btn btn-danger removeGoal'>")
                 line.push("<span class='glyphicon glyphicon-trash' aria-hidden='true'></span>")
             line.push("</button>")
         line.push("</td>")

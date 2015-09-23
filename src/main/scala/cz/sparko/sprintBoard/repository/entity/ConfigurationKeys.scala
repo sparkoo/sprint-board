@@ -4,4 +4,5 @@ object ConfigurationKeys {
     //keys
     val CURRENT_SPRINT = "currentSprint"
     val TEAM_NAME = "teamName"
+    val NOTEBOARD = "noteboard"
 }
