@@ -16,7 +16,7 @@ case class Release(@BeanProperty id: Option[String],
                    @BeanProperty release: ZonedDateTime)
 
 class ReleaseSerializer extends JsonSerializer[Release] {
-    val dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyy")
+    val dateFormatter = DateTimeFormatter.ofPattern("d.M.yyy")
 
     override def serialize(value: Release, jgen: JsonGenerator, provider: SerializerProvider): Unit = {
         jgen.writeStartObject()

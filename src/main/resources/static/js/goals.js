@@ -40,7 +40,7 @@ function addGoalForm(event) {
         $('#newGoalName').focus()
 
         // submit new goal form
-        $('#goalsForm').off().submit("click", function() {
+        $('#goalsForm').off().on("submit", function() {
             addGoalRequest()
             return false
         })

@@ -1,7 +1,6 @@
 package cz.sparko.sprintBoard.controller.rest
 
 import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
 
 import cz.sparko.sprintBoard.entity.{Goal, Sprint}
 import cz.sparko.sprintBoard.repository.service.SprintService
@@ -33,17 +32,12 @@ class SprintController @Autowired()(val sprintService: SprintService) {
         sprintService.saveNameToCurrent(name).name
     }
 
-    @RequestMapping(Array("/getAll"))
-    def getAll() = {
-
-    }
-
-    def getCurrentSprintName() = {
+    def getCurrentSprintName = {
         sprintService.getCurrent.name
     }
 
     @RequestMapping(Array("/getCurrent"))
-    def getCurrentSprintId() = {
+    def getCurrentSprintId = {
         sprintService.getCurrent.id.getOrElse("")
     }
 
@@ -60,8 +54,6 @@ class SprintController @Autowired()(val sprintService: SprintService) {
         sprintService.removeGoal(sprintId, goalId)
         true
     }
-
-    val dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyy")
 
     @RequestMapping(Array("/getFrom"))
     def getCurrentSprintFrom: String = {
