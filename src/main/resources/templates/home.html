@@ -79,8 +79,8 @@
             <h1 id="sprint-name" th:text="${@sprintController.getCurrentSprintName()}"></h1>
 
             <h3 th:inline="text">
-                <span id="from" th:text="${@sprintController.getCurrentSprintFromFormatted()}"></span> -
-                <span id="to" th:text="${@sprintController.getCurrentSprintToFormatted()}"></span>
+                <span id="sprintFrom"></span> -
+                <span id="sprintTo"></span>
             </h3>
         </div>
         <hr/>

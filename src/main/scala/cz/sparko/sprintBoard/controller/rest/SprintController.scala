@@ -1,12 +1,12 @@
 package cz.sparko.sprintBoard.controller.rest
 
-import java.time.{ZoneOffset, Instant, ZonedDateTime}
+import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
-import cz.sparko.sprintBoard.entity.{Sprint, Goal}
+import cz.sparko.sprintBoard.entity.{Goal, Sprint}
 import cz.sparko.sprintBoard.repository.service.SprintService
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.RequestMethod.{POST, GET}
+import org.springframework.web.bind.annotation.RequestMethod.{GET, POST}
 import org.springframework.web.bind.annotation.{RequestMapping, RequestParam, ResponseBody, RestController}
 
 @RestController
@@ -14,18 +14,18 @@ import org.springframework.web.bind.annotation.{RequestMapping, RequestParam, Re
 class SprintController @Autowired()(val sprintService: SprintService) {
     @RequestMapping(method = Array(POST), value = Array("/updateFrom"))
     def updateFrom(@RequestParam(value = "sprintId", required = true) sprintId: String,
-                   @RequestParam(value = "fromValue", required = true) fromValue: Long) = {
+                   @RequestParam(value = "fromValue", required = true) fromValue: String) = {
         sprintService.findById(sprintId)
             .map(s => sprintService.save(
-            s.copy(from = ZonedDateTime.ofInstant(Instant.ofEpochSecond(fromValue), ZoneOffset.UTC.normalized()))))
+            s.copy(from = ZonedDateTime.parse(fromValue))))
     }
 
     @RequestMapping(method = Array(POST), value = Array("/updateTo"))
     def updateTo(@RequestParam(value = "sprintId", required = true) sprintId: String,
-                 @RequestParam(value = "toValue", required = true) toValue: Long) = {
+                 @RequestParam(value = "toValue", required = true) toValue: String) = {
         sprintService.findById(sprintId)
             .map(s => sprintService.save(
-            s.copy(to = ZonedDateTime.ofInstant(Instant.ofEpochSecond(toValue), ZoneOffset.UTC.normalized()))))
+            s.copy(to = ZonedDateTime.parse(toValue))))
     }
 
     @RequestMapping(method = Array(POST), value = Array("/saveName"))
@@ -63,12 +63,14 @@ class SprintController @Autowired()(val sprintService: SprintService) {
 
     val dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyy")
 
-    def getCurrentSprintFromFormatted(): String = {
-        sprintService.getCurrent.from.format(dateFormatter)
+    @RequestMapping(Array("/getFrom"))
+    def getCurrentSprintFrom: String = {
+        sprintService.getCurrent.from.toString
     }
 
-    def getCurrentSprintToFormatted(): String = {
-        sprintService.getCurrent.to.format(dateFormatter)
+    @RequestMapping(Array("/getTo"))
+    def getCurrentSprintTo: String = {
+        sprintService.getCurrent.to.toString
     }
 
 

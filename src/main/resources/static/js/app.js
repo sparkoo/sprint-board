@@ -1,5 +1,8 @@
 var currentSprintId = null;
 
+function formatDate(date) {
+    return date.getDate() + "." + (date.getMonth() + 1) + "." + date.getFullYear()
+}
 
 $(document).ready(function() {
     $.ajax({
@@ -8,8 +11,19 @@ $(document).ready(function() {
         currentSprintId = data
         load()
     })
-    $('#from').datepicker({
-        format: "dd.mm.yyyy",
+    $.ajax({
+        url: "/rest/sprint/getFrom"
+    }).done(function(date) {
+        $('#sprintFrom').text(formatDate(new Date(date)))
+    })
+    $.ajax({
+        url: "/rest/sprint/getTo"
+    }).done(function(date) {
+        $('#sprintTo').text(formatDate(new Date(date)))
+    })
+
+    $('#sprintFrom').datepicker({
+        format: "d.m.yyyy",
         weekStart: 1,
         todayBtn: "linked",
         autoclose: true,
@@ -20,31 +34,31 @@ $(document).ready(function() {
             method: "POST",
             data: {
                 "sprintId": currentSprintId,
-                "fromValue": parseInt(e.timeStamp / 1000)
+                "fromValue": e.date.toJSON()
             }
         }).done(function() {
-            $('#from').text(e.format())
+            $('#sprintFrom').text(e.format())
         })
-        $('#from').text(e.format())
     })
 
-    $('#to').datepicker({
-        format: "dd.mm.yyyy",
+    $('#sprintTo').datepicker({
+        format: "d.m.yyyy",
         weekStart: 1,
         todayBtn: "linked",
         autoclose: true,
         todayHighlight: true
     }).on("changeDate", function(e) {
         console.log(e)
+        console.log(e.date.getTime())
         $.ajax({
             url: "/rest/sprint/updateTo",
             method: "POST",
             data: {
                 "sprintId": currentSprintId,
-                "toValue": parseInt(e.timeStamp)
+                "toValue": e.date.toJSON()
             }
         }).done(function() {
-            $('#to').text(e.format())
+            $('#sprintTo').text(e.format())
         })
     })
 
