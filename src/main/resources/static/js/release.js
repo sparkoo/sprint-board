@@ -10,7 +10,6 @@ function loadReleasesTable() {
 }
 
 function printReleaseTable(data) {
-    console.log(data)
     $("#releaseTable").find("> tbody").empty()
     var rlsLines = []
     for (var k in data) {
