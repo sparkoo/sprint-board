@@ -55,14 +55,9 @@ class SprintController @Autowired()(val sprintService: SprintService) {
         true
     }
 
-    @RequestMapping(Array("/getFrom"))
-    def getCurrentSprintFrom: String = {
-        sprintService.getCurrent.from.toString
-    }
-
-    @RequestMapping(Array("/getTo"))
-    def getCurrentSprintTo: String = {
-        sprintService.getCurrent.to.toString
+    @RequestMapping(Array("/dates"))
+    def getCurrentSprintFrom = {
+        (sprintService.getCurrent.from.toString, sprintService.getCurrent.to.toString)
     }
 
 

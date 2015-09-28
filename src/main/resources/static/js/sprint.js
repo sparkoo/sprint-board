@@ -23,14 +23,10 @@ function loadSprint(whenLoaded) {
 
 function loadDates() {
     $.ajax({
-        url: "/rest/sprint/getFrom"
+        url: "/rest/sprint/dates"
     }).done(function(date) {
-        $('#sprintFrom').text(formatDate(new Date(date)))
-    })
-    $.ajax({
-        url: "/rest/sprint/getTo"
-    }).done(function(date) {
-        $('#sprintTo').text(formatDate(new Date(date)))
+        $('#sprintFrom').text(formatDate(new Date(date._1)))
+        $('#sprintTo').text(formatDate(new Date(date._2)))
     })
 
     $('#sprintFrom').datepicker({
