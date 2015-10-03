@@ -1,5 +1,5 @@
 group "sprintBoard"
-version "1.0"
+version "1.1-SNAPSHOT"
 
 apply plugin: "rebel"
 apply plugin: "spring-boot"
@@ -50,3 +50,11 @@ dependencies {
 test {
     useTestNG()
 }
+
+//jar.dependsOn(generateRebel)
+//bootRun.dependsOn(generateRebel)
+//
+//applicationDefaultJvmArgs = [
+//        "-javaagent:C:/Users/michal/.IdeaIC14/config/plugins/jr-ide-idea/lib/jrebel6/jrebel.jar",
+//        "-Xbootclasspath/p:C:/Users/michal/AppData/Local/Temp//rebelboot.jar"
+//]
