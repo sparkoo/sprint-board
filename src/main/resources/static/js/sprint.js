@@ -2,8 +2,15 @@ function loadSprint(whenLoaded) {
     $.ajax({
         url: "/rest/sprint/getCurrent"
     }).done(function(data) {
-        currentSprintId = data
+        currentSprintId = data._1
+        $("#sprint-name").text(data._2)
         whenLoaded()
+    })
+    $.ajax({
+        url: "/rest/team"
+    }).done(function(value) {
+        document.title = value + " - Sprintboard"
+        $('#team-name').text(value)
     })
 
     loadDates()

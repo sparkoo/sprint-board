@@ -37,8 +37,11 @@ class SprintController @Autowired()(val sprintService: SprintService) {
     }
 
     @RequestMapping(Array("/getCurrent"))
-    def getCurrentSprintId = {
-        sprintService.getCurrent.id.getOrElse("")
+    def getCurrentSprint = {
+        sprintService.getCurrent match {
+            case s => (s.id.getOrElse(""), s.name)
+            case _ => ""
+        }
     }
 
     @RequestMapping(method = Array(POST, GET), value = Array("/addGoal"))
