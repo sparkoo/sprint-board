@@ -40,7 +40,6 @@ class SprintController @Autowired()(val sprintService: SprintService) {
     def getCurrentSprint = {
         sprintService.getCurrent match {
             case s => (s.id.getOrElse(""), s.name)
-            case _ => ""
         }
     }
 
