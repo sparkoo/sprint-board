@@ -17,11 +17,6 @@ function printReleaseTable(data) {
         rlsLines.push("<td>" + data[k].version + "</td>")
         rlsLines.push("<td>" + data[k].codefreeze + "</td>")
         rlsLines.push("<td>" + data[k].release + "</td>")
-        rlsLines.push("<td>")
-            rlsLines.push("<button type='button' class='btn btn-xs btn-danger removeRelease'>")
-                rlsLines.push("<span class='glyphicon glyphicon-trash' aria-hidden='true'></span>")
-            rlsLines.push("</button>")
-        rlsLines.push("</td>")
         rlsLines.push("</tr>")
     }
     $("#releaseTable").find("> tbody").html(rlsLines.join("\n"))

@@ -13,6 +13,9 @@ class JiraClientService(jiraClient: JiraRestClient) {
 
     def searchIssues(jqlQuery: String): List[Issue] = jiraClient.getSearchClient.searchJql(jqlQuery).claim().getIssues.toList
 
+    def release = jiraClient.getProjectClient.getProject("SQ").claim().getVersions.toList
+        .filter(p => !p.isReleased && p.getReleaseDate != null)
+
     @PreDestroy
     def close = jiraClient.close()
 }

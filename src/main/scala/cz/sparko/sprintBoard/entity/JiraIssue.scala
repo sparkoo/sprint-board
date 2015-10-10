@@ -6,4 +6,5 @@ case class JiraIssue(@BeanProperty task: String,
                      @BeanProperty name: String,
                      @BeanProperty assignee: String,
                      @BeanProperty fixVersion: String,
-                     @BeanProperty state: String)
+                     @BeanProperty state: String,
+                     @BeanProperty link: String)

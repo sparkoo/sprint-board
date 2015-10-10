@@ -17,7 +17,7 @@ function loadSlas() {
 function generateSlaLine(sla) {
     var line = []
     line.push("<tr>")
-        line.push("<td>" + sla.task + "</td>")
+        line.push("<td><a href='" + sla.link + "' target='_blank'>" + sla.task + "</a></td>")
         line.push("<td>" + sla.name + "</td>")
         line.push("<td>" + sla.assignee + "</td>")
         line.push("<td>" + sla.state + "</td>")

@@ -1,3 +1,5 @@
 jira.url = http://jiraurl
 jira.username = jirausername
 jira.password = jirapassword
+
+jira.label = tasklabel

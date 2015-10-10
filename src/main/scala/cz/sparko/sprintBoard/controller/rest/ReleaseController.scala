@@ -3,7 +3,7 @@ package cz.sparko.sprintBoard.controller.rest
 import java.time.{ZoneId, ZonedDateTime}
 
 import cz.sparko.sprintBoard.entity.Release
-import cz.sparko.sprintBoard.repository.service.ReleaseService
+import cz.sparko.sprintBoard.repository.service.{JiraClientService, ReleaseService}
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.RequestMethod.POST
 import org.springframework.web.bind.annotation.{RequestMapping, RequestParam, RestController}
@@ -12,7 +12,8 @@ import scala.collection.JavaConverters._
 
 @RestController
 @RequestMapping(Array("/rest/release"))
-class ReleaseController @Autowired()(releaseService: ReleaseService) {
+class ReleaseController @Autowired()(releaseService: ReleaseService,
+                                     jiraClient: JiraClientService) {
 
     @RequestMapping(value = Array("/save"), method = Array(POST))
     def save(@RequestParam(value = "version", required = true) version: String,
@@ -28,11 +29,23 @@ class ReleaseController @Autowired()(releaseService: ReleaseService) {
     }
 
     @RequestMapping(value = Array("/getAll"))
-    def getAll: java.util.List[Release] = releaseService.getAll.asJava
+    def getAll: java.util.List[Release] = {
+        jiraClient.release
+            .map(r => Release(None, r.getName,
+            makeDateFromDescription(r.getDescription).getOrElse(ZonedDateTime.now()),
+            ZonedDateTime.ofInstant(r.getReleaseDate.toDate.toInstant, ZoneId.systemDefault())))
+            .sortWith((r1, r2) => r1.codefreeze.compareTo(r2.codefreeze) < 0)
+            .asJava
+    }
 
     @RequestMapping(value = Array("/remove"), method = Array(POST))
     def remove(@RequestParam(value = "id", required = true) id: String) = {
         releaseService.remove(id)
         true
+    }
+
+    def makeDateFromDescription(description: String) = {
+        val regex = """(\d{2}).{1,2}(\d{2}).{1,2}(\d{4})""".r
+        regex.findFirstMatchIn(description).map(m => ZonedDateTime.of(m.group(3).toInt, m.group(2).toInt, m.group(1).toInt, 0, 0, 0, 0, ZoneId.of("Z")))
     }
 }

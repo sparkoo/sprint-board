@@ -19,3 +19,7 @@ h1, h2, h3 {
 td {
     vertical-align: middle !important;
 }
+
+#releaseTable {
+    margin-bottom: 0;
+}
