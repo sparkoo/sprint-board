@@ -1,6 +1,6 @@
 package cz.sparko.sprintBoard.controller.rest
 
-import java.time.{ZoneId, ZonedDateTime}
+import java.time.{Instant, ZoneId, ZonedDateTime}
 
 import cz.sparko.sprintBoard.entity.Release
 import cz.sparko.sprintBoard.repository.service.{JiraClientService, ReleaseService}
@@ -32,8 +32,8 @@ class ReleaseController @Autowired()(releaseService: ReleaseService,
     def getAll: java.util.List[Release] = {
         jiraClient.release
             .map(r => Release(None, r.getName,
-            makeDateFromDescription(r.getDescription).getOrElse(ZonedDateTime.now()),
-            ZonedDateTime.ofInstant(r.getReleaseDate.toDate.toInstant, ZoneId.systemDefault())))
+                makeDateFromDescription(r.getDescription).getOrElse(ZonedDateTime.ofInstant(Instant.ofEpochMilli(0), ZoneId.of("Z"))),
+                ZonedDateTime.ofInstant(r.getReleaseDate.toDate.toInstant, ZoneId.systemDefault())))
             .sortWith((r1, r2) => r1.codefreeze.compareTo(r2.codefreeze) < 0)
             .asJava
     }
