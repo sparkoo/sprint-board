@@ -45,7 +45,7 @@ class ReleaseController @Autowired()(releaseService: ReleaseService,
     }
 
     def makeDateFromDescription(description: String) = {
-        val regex = """(\d{2}).{1,2}(\d{2}).{1,2}(\d{4})""".r
+        val regex = """(\d{1,2})\. ?{1,2}(\d{1,2})\. ?{1,2}(\d{4})""".r
         regex.findFirstMatchIn(description).map(m => ZonedDateTime.of(m.group(3).toInt, m.group(2).toInt, m.group(1).toInt, 0, 0, 0, 0, ZoneId.of("Z")))
     }
 }
