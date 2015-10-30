@@ -4,7 +4,7 @@ import java.time.{Instant, ZoneId, ZonedDateTime}
 
 import cz.sparko.sprintBoard.entity.Release
 import cz.sparko.sprintBoard.repository.service.{JiraClientService, ReleaseService}
-import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.{Value, Autowired}
 import org.springframework.web.bind.annotation.RequestMethod.POST
 import org.springframework.web.bind.annotation.{RequestMapping, RequestParam, RestController}
 
@@ -14,6 +14,8 @@ import scala.collection.JavaConverters._
 @RequestMapping(Array("/rest/release"))
 class ReleaseController @Autowired()(releaseService: ReleaseService,
                                      jiraClient: JiraClientService) {
+
+    @Value("${jira.release.project}") var project: String = _
 
     @RequestMapping(value = Array("/save"), method = Array(POST))
     def save(@RequestParam(value = "version", required = true) version: String,
@@ -30,7 +32,7 @@ class ReleaseController @Autowired()(releaseService: ReleaseService,
 
     @RequestMapping(value = Array("/getAll"))
     def getAll: java.util.List[Release] = {
-        jiraClient.release
+        jiraClient.release(project)
             .map(r => Release(None, r.getName,
                 makeDateFromDescription(r.getDescription).getOrElse(ZonedDateTime.ofInstant(Instant.ofEpochMilli(0), ZoneId.of("Z"))),
                 ZonedDateTime.ofInstant(r.getReleaseDate.toDate.toInstant, ZoneId.systemDefault())))

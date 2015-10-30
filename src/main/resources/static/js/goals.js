@@ -101,7 +101,7 @@ function generateGoalLine(goal, count) {
             icon = "leaf"
             break;
         case "Risk":
-            btn = "warning"
+            btn = "danger"
             icon = "warning-sign"
             break;
         case "Done":
