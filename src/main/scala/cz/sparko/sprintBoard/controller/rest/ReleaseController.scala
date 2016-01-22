@@ -1,10 +1,10 @@
 package cz.sparko.sprintBoard.controller.rest
 
-import java.time.{Instant, ZoneId, ZonedDateTime}
+import java.time.{ZoneId, ZonedDateTime}
 
 import cz.sparko.sprintBoard.entity.Release
 import cz.sparko.sprintBoard.repository.service.{JiraClientService, ReleaseService}
-import org.springframework.beans.factory.annotation.{Value, Autowired}
+import org.springframework.beans.factory.annotation.{Autowired, Value}
 import org.springframework.web.bind.annotation.RequestMethod.POST
 import org.springframework.web.bind.annotation.{RequestMapping, RequestParam, RestController}
 
@@ -34,7 +34,7 @@ class ReleaseController @Autowired()(releaseService: ReleaseService,
     def getAll: java.util.List[Release] = {
         jiraClient.release(project)
             .map(r => Release(None, r.getName,
-                makeDateFromDescription(r.getDescription).getOrElse(ZonedDateTime.ofInstant(Instant.ofEpochMilli(0), ZoneId.of("Z"))),
+                makeDateFromDescription(r.getDescription).getOrElse(ZonedDateTime.now().plusYears(10)),
                 ZonedDateTime.ofInstant(r.getReleaseDate.toDate.toInstant, ZoneId.systemDefault())))
             .sortWith((r1, r2) => r1.codefreeze.compareTo(r2.codefreeze) < 0)
             .asJava

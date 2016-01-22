@@ -113,7 +113,7 @@ function generateGoalLine(goal, count) {
     }
     line.push("<tr data-goal-id='" + goal.id + "'>")
         line.push("<td>")
-            line.push("<button type='button' class='btn-sm btn-" + btn + " btn changeState' role='button'>")
+            line.push("<button type='button' class='btn btn-" + btn + " btn changeState' role='button'>")
                 line.push("<span class='glyphicon glyphicon-" + icon + "' aria-hidden='true'></span>")
             line.push("</button>")
         line.push("</td>")
