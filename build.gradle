@@ -1,5 +1,5 @@
 group "sprintBoard"
-version "1.3-SNAPSHOT"
+version "1.3"
 
 apply plugin: "rebel"
 apply plugin: "spring-boot"
